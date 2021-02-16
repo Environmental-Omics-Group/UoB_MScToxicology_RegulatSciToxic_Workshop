@@ -3,6 +3,8 @@ rm(list = ls())
 library(ggplot2)
 # library(plotly)
 
+setwd("~/MScTox_BIOM33_Workshop/Session 2")
+
 
 # -----------------------------------------------------
 # 1. load sample sheet metadata

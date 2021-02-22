@@ -1,8 +1,10 @@
 rm(list = ls())
 
+# load libraries
 library(ggplot2)
-# library(plotly)
+library(plotly)
 
+# set work dir
 setwd("~/MScTox_BIOM33_Workshop/Session 2")
 
 
@@ -12,11 +14,15 @@ setwd("~/MScTox_BIOM33_Workshop/Session 2")
 sample_sheet_file <- 'sample_sheet.csv'
 sample_sheet <- read.table(sample_sheet_file, header = T, sep = ',', row.names = 1)
 
-# set Control as default reference condition
-sample_sheet$Condition <- as.factor(sample_sheet$Condition)
-sample_sheet$Condition <- relevel(sample_sheet$Condition, ref = 'Control')
-
 # take a subset if needed
+# =====================================
+# QUESTION 1: Please try to used different condition subsets to plot your PCA:
+#   a. Control, Indium, and Aluminium_Indium 
+#   b. Control, Aluminium, and Aluminium_Indium 
+#   c. Control, Indium, and Aluminium
+#   d. Indium, Aluminium, and Aluminium_Indium
+# How does the PCA plot change?
+# =====================================
 sample_sheet <- sample_sheet[sample_sheet$Condition %in% c('Control','Indium','Aluminium_Indium'),]
 
 # check the loaded metadata
@@ -27,6 +33,13 @@ dim(sample_sheet)
 # -----------------------------------------------------
 # 2. load read counts
 # -----------------------------------------------------
+# =====================================
+# QUESTION 2: Please try to used different input matrices to plot your PCA:
+#   a. raw counts 
+#   b. normalised counts
+#   c. VST counts
+# How does the PCA plot change?
+# =====================================
 read_counts_file <- 'gene_norm_counts.csv'
 read_counts <- read.table(read_counts_file, header = T, sep = ',',  row.names = 1, check.names = F)
 
@@ -84,6 +97,14 @@ pca.plot <- function(read.counts, classes,
 # 5. Plot PCA on the read counts
 # -----------------------------------------------------
 groups <- sample_sheet$Condition
+
+# =====================================
+# QUESTION 3: Please try to used different number of top genes (with the largest variants) to plot your PCA:
+#   a. a small number, e.g., 100
+#   b. half of the genes
+#   c. all the genes
+# How does the PCA plot change?
+# =====================================
 p <- pca.plot(read_counts, groups, comps = c(1,2), ntop = 2000)
 p
 # ggplotly(p)

@@ -40,25 +40,25 @@ cat(paste0('significant p-adjust and up-regulated = ', nrow(AluIndVsConSigUp), '
 
 
 # mapping genes
-orthoMap <- read.csv("odb10v1_dma_to_dpx_level_6657.tsv", header = F, row.names = 1, sep = '\t', stringsAsFactors = F)
+orthoMap <- read.csv("odb10v1_dma_to_hsa_level_33208_gn.tsv", header = F, row.names = 1, sep = '\t', stringsAsFactors = F)
 
 RefOrtho <- subset(orthoMap, row.names(orthoMap) %in% row.names(df))
 RefOrtho <- unique(unlist(strsplit(RefOrtho$V2, split = ';')))
 length(RefOrtho)
-writeLines(RefOrtho, 'reference_orthologs.txt')
+writeLines(RefOrtho, 'reference_orthologs_hsa.txt')
 
 AluVsConSigOrtho <- subset(orthoMap, row.names(orthoMap) %in% row.names(AluVsConSig))
 AluVsConSigOrtho <- unique(unlist(strsplit(AluVsConSigOrtho$V2, split = ';')))
 length(AluVsConSigOrtho)
-writeLines(AluVsConSigOrtho, 'AluVsConSig_orthologs.txt')
+writeLines(AluVsConSigOrtho, 'AluVsConSig_orthologs_hsa.txt')
 
 IndVsConSigOrtho <- subset(orthoMap, row.names(orthoMap) %in% row.names(IndVsConSig))
 IndVsConSigOrtho <- unique(unlist(strsplit(IndVsConSigOrtho$V2, split = ';')))
 length(IndVsConSigOrtho)
-writeLines(IndVsConSigOrtho, 'IndVsConSigOrtho_orthologs.txt')
+writeLines(IndVsConSigOrtho, 'IndVsConSigOrtho_orthologs_hsa.txt')
 
 AluIndVsConSigOrtho <- subset(orthoMap, row.names(orthoMap) %in% row.names(AluIndVsConSig))
 AluIndVsConSigOrtho <- unique(unlist(strsplit(AluIndVsConSigOrtho$V2, split = ';')))
 length(AluIndVsConSigOrtho)
-writeLines(AluIndVsConSigOrtho, 'AluIndVsConSigOrtho_orthologs.txt')
+writeLines(AluIndVsConSigOrtho, 'AluIndVsConSigOrtho_orthologs_hsa.txt')
 

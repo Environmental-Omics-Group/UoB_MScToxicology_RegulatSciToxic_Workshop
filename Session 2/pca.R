@@ -1,11 +1,9 @@
-rm(list = ls())
-
 # load libraries
 library(ggplot2)
 library(plotly)
 
-# set work dir
-setwd("~/MScTox_BIOM33_Workshop/Session 2")
+# Enable plotting in BearPortal
+options(bitmapType='cairo')
 
 
 # -----------------------------------------------------

@@ -103,6 +103,6 @@ groups <- sample_sheet$Condition
 #   c. all the genes
 # How does the PCA plot change?
 # =====================================
-p <- pca.plot(read_counts, groups, comps = c(1,2), ntop = 2000)
+p <- pca.plot(read_counts, groups, comps = c(1,2), ntop = 1000)
 p
 # ggplotly(p)

@@ -1,11 +1,9 @@
-rm(list = ls())
-
 # load libraries
 library(ggplot2)
 library(plotly)
 
-# set work dir
-setwd("~/MScTox_BIOM33_Workshop/Session 2")
+# Enable plotting in BearPortal
+options(bitmapType='cairo')
 
 
 # -----------------------------------------------------
@@ -38,9 +36,13 @@ dim(indium_dres)
 # QUESTION 1: Please try to used original log2FoldChange values rather than the absolute values
 # How does the additive plot change?
 # =====================================
-aluminium_indium_lfc <- abs(aluminium_indium_dres$log2FoldChange)
-aluminium_lfc <- abs(aluminium_dres$log2FoldChange)
-indium_lfc <- abs(indium_dres$log2FoldChange)
+aluminium_indium_lfc <- aluminium_indium_dres$log2FoldChange
+aluminium_lfc <- aluminium_dres$log2FoldChange
+indium_lfc <- indium_dres$log2FoldChange
+
+aluminium_indium_lfc <- abs(aluminium_indium_lfc)
+aluminium_lfc <- abs(aluminium_lfc)
+indium_lfc <- abs(indium_lfc)
 
 observed_lfc <- aluminium_indium_lfc
 expected_lfc <- aluminium_lfc + indium_lfc
@@ -64,12 +66,16 @@ expected_lfc <- aluminium_lfc + indium_lfc
 # How does the additive plot change?
 # If we use pvalue rather than padj, how does the additive plot change?
 # =====================================
+padj.cutoff <- 0.05
+
 # DEGs on all three comparisons
-degs <- (aluminium_indium_dres$padj < 0.05) & (aluminium_dres$padj < 0.05) & (indium_dres$padj < 0.05)
+degs <- (aluminium_indium_dres$padj < padj.cutoff) & (aluminium_dres$padj < padj.cutoff) & (indium_dres$padj < padj.cutoff)
 # OR, DEGs on any two comparisons
-degs <- ((aluminium_indium_dres$padj < 0.05) & (aluminium_dres$padj < 0.05)) | 
-        ((aluminium_indium_dres$padj < 0.05) & (indium_dres$padj < 0.05)) |
-        ((aluminium_dres$padj < 0.05) & (indium_dres$padj < 0.05))
+degs <- ((aluminium_indium_dres$padj < padj.cutoff) & (aluminium_dres$padj < padj.cutoff)) | 
+        ((aluminium_indium_dres$padj < padj.cutoff) & (indium_dres$padj < padj.cutoff)) |
+        ((aluminium_dres$padj < padj.cutoff) & (indium_dres$padj < padj.cutoff))
+# OR, all genes
+degs <- !(is.na(aluminium_indium_dres$padj) | is.na(aluminium_dres$padj) | is.na(indium_dres$padj))
 
 # remove na and outliers
 degs[is.na(degs)] <- F
@@ -87,6 +93,7 @@ plot.data <- data.frame(Observed = observed_lfc[degs], Expected = expected_lfc[d
 
 p <- ggplot(plot.data, aes(Observed,Expected)) +
      geom_point() + 
-     geom_smooth(method = 'lm', formula = y~x)
+     geom_smooth(method = 'lm', formula = y~x) + 
+     geom_abline(intercept = -0.5, slope = 2, color = 'red', linetype = 'dashed', linewidth = 1.5)
 p
 #ggplotly(p)

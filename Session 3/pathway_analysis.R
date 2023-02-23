@@ -1,9 +1,3 @@
-rm(list = ls())
-
-# set work dir
-setwd("~/MScTox_BIOM33_Workshop/Session 3")
-
-
 # read DESeq2 results
 df <- read.csv("DESeq2_results_all.csv", header = T, row.names = 1, check.names = F)
 

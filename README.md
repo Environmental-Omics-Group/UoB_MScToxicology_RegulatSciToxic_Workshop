@@ -12,6 +12,6 @@ The contents in this repo is distributed under the GNU General Public License v3
 ## Installation
 
 ```bash
-git clone https://github.com/Environmental-Omics-Group/MScTox_BIOM33_Workshop.git
+git clone https://github.com/Environmental-Omics-Group/UoB_MScToxicology_RegulatSciToxic_Workshop.git
 ```
 
